@@ -1,7 +1,7 @@
 package main
 
 import (
-	"github.com/ManuRua/golab/refactor_to_cobra/internal/cli"
+	"github.com/ManuRua/golab/codelytv_golang_course/refactor_to_cobra/internal/cli"
 	"github.com/spf13/cobra"
 )
 
