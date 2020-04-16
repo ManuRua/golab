@@ -1,4 +1,4 @@
-package stores-cli
+package cli
 
 import (
 	"fmt"
@@ -6,16 +6,11 @@ import (
 	"github.com/spf13/cobra"
 )
 
-// CobraFn function definion of run cobra command
-type CobraFn func(cmd *cobra.Command, args []string)
-
 var stores = map[string]string{
 	"1": "Mercadona",
 	"2": "Carrefour",
-	"3": "Alcampo"
+	"3": "Alcampo",
 }
-
-const idFlag = "id"
 
 // InitStoresCmd initialize stores command
 func InitStoresCmd() *cobra.Command {
