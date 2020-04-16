@@ -1,4 +1,4 @@
-package cli
+package beers-cli
 
 import (
 	"fmt"
