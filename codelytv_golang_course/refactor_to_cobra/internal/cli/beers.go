@@ -1,12 +1,10 @@
 package cli
 
 import (
-	"bufio"
 	"fmt"
-	"os"
 	"strconv"
-	"strings"
 
+	beerscli "github.com/ManuRua/golab/codelytv_golang_course/refactor_to_cobra/internal"
 	"github.com/spf13/cobra"
 )
 
@@ -16,11 +14,11 @@ type CobraFn func(cmd *cobra.Command, args []string)
 const idFlag = "id"
 
 // InitBeersCmd initialize beers command
-func InitBeersCmd() *cobra.Command {
+func InitBeersCmd(repository beerscli.BeerRepo) *cobra.Command {
 	beersCmd := &cobra.Command{
 		Use:   "beers",
 		Short: "Print data about beers",
-		Run:   runBeersFn(),
+		Run:   runBeersFn(repository),
 	}
 
 	beersCmd.Flags().StringP(idFlag, "i", "", "id of the beer")
@@ -28,32 +26,22 @@ func InitBeersCmd() *cobra.Command {
 	return beersCmd
 }
 
-func runBeersFn() CobraFn {
+func runBeersFn(repository beerscli.BeerRepo) CobraFn {
 	return func(cmd *cobra.Command, args []string) {
-		f, _ := os.Open("codelytv_golang_course/refactor_to_cobra/data/beers.csv")
-		reader := bufio.NewReader(f)
-
-		var beers = make(map[int]string)
-
-		for line := readLine(reader); line != nil; line = readLine(reader) {
-			values := strings.Split(string(line), ",")
-
-			productID, _ := strconv.Atoi(values[0])
-			beers[productID] = values[1]
-		}
+		beers, _ := repository.GetBeers()
 
 		id, _ := cmd.Flags().GetString(idFlag)
 
 		if id != "" {
 			i, _ := strconv.Atoi(id)
-			fmt.Println(beers[i])
+			for _, beer := range beers {
+				if beer.ProductID == i {
+					fmt.Println(beer)
+					return
+				}
+			}
 		} else {
 			fmt.Println(beers)
 		}
 	}
-}
-
-func readLine(reader *bufio.Reader) (line []byte) {
-	line, _, _ = reader.ReadLine()
-	return
 }
