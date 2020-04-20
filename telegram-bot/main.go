@@ -1,6 +1,7 @@
 package main
 
 import (
+	"fmt"
 	"log"
 	"os"
 
@@ -8,8 +9,13 @@ import (
 	"github.com/yanzay/tbot/v2"
 )
 
+type score struct {
+	wins, draws, losses uint
+}
+
 type application struct {
 	client *tbot.Client
+	score
 }
 
 var (
@@ -33,10 +39,13 @@ func init() {
 }
 
 func main() {
+	fmt.Println(os.Getenv("PORT"))
 	bot = tbot.New(token, tbot.WithWebhook("https://rochambeau-telegram-bot.herokuapp.com", ":"+os.Getenv("PORT")))
 	app.client = bot.Client()
 	bot.HandleMessage("/start", app.startHandler)
 	bot.HandleMessage("/play", app.playHandler)
+	bot.HandleMessage("/score", app.scoreHandler)
+	bot.HandleMessage("/reset", app.resetHandler)
 	bot.HandleCallback(app.callbackHandler)
 	log.Fatal(bot.Start())
 }
