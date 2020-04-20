@@ -1,9 +1,11 @@
 package main
 
-import "github.com/yanzay/tbot/v2"
+import (
+	"github.com/yanzay/tbot/v2"
+)
 
 // Handle the /start command here
-func (a *application) StartHandler(m *tbot.Message) {
+func (a *application) startHandler(m *tbot.Message) {
 	msg := "This is a bot whose sole purpose is to play rock, paper, scissors with you. Use /play to play."
 	a.client.SendMessage(m.Chat.ID, msg)
 }

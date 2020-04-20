@@ -31,7 +31,7 @@ func makeButtons() *tbot.InlineKeyboardMarkup {
 	return &tbot.InlineKeyboardMarkup{
 		InlineKeyboard: [][]tbot.InlineKeyboardButton{
 			[]tbot.InlineKeyboardButton{btnRock, btnPaper, btnScissors},
-		}
+		},
 	}
 }
 
