@@ -13,9 +13,15 @@ type application struct {
 }
 
 var (
-	app   application
-	bot   *tbot.Server
-	token string
+	app     application
+	bot     *tbot.Server
+	token   string
+	options = map[string]string{
+		// choice : beats
+		"paper":    "rock",
+		"rock":     "scissors",
+		"scissors": "paper",
+	}
 )
 
 func init() {
@@ -30,11 +36,7 @@ func main() {
 	bot = tbot.New(token)
 	app.client = bot.Client()
 	bot.HandleMessage("/start", app.startHandler)
+	bot.HandleMessage("/play", app.playHandler)
+	bot.HandleCallback(app.callbackHandler)
 	log.Fatal(bot.Start())
-}
-
-// Handle the /start command here
-func (a *application) startHandler(m *tbot.Message) {
-	msg := "This is a bot whose sole purpose is to play rock, paper, scissors with you."
-	a.client.SendMessage(m.Chat.ID, msg)
 }
