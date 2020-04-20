@@ -1,6 +1,8 @@
 module github.com/ManuRua/golab
 
 go 1.14
+// +heroku goVersion go1.14
+// +heroku install ./telegram-bot/...
 
 require (
 	github.com/joho/godotenv v1.3.0
