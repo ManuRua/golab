@@ -8,7 +8,7 @@ import (
 
 // Handle the /start command here
 func (a *application) startHandler(m *tbot.Message) {
-	msg := "This is a bot whose sole purpose is to play rock, paper, scissors with you. Use /play to play."
+	msg := "This is a bot whose sole purpose is to play rock, paper, scissors with you.\nCommands:\n1. Use /play to play.\n2. Use /score to view current scores.\n3. Use /reset to reset scores."
 	a.client.SendMessage(m.Chat.ID, msg)
 }
 
