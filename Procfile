@@ -1,1 +1,1 @@
-web: bin/telegram-bot
+web: bin/golab
