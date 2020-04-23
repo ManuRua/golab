@@ -14,6 +14,11 @@ import (
 )
 
 func main() {
+	// f, _ := os.Create("beers.cpu.prof")
+	// defer f.Close()
+	// pprof.StartCPUProfile(f)
+	// defer pprof.StopCPUProfile()
+
 	csvData := flag.Bool("csv", false, "load data from csv")
 	flag.Parse()
 
@@ -30,4 +35,8 @@ func main() {
 	rootCmd.AddCommand(cli.InitBeersCmd(fetchingService))
 	rootCmd.AddCommand(cli.InitStoresCmd())
 	rootCmd.Execute()
+
+	// f, _ := os.Create("beers.mem.prof")
+	// defer f.Close()
+	// pprof.WriteHeapProfile(f)
 }
