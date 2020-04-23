@@ -8,6 +8,7 @@ import (
 
 	beerscli "github.com/ManuRua/golab/codelytv_golang_course/refactor_to_cobra/internal"
 	"github.com/ManuRua/golab/codelytv_golang_course/refactor_to_cobra/internal/errors"
+	jsoniter "github.com/json-iterator/go"
 )
 
 const (
@@ -42,4 +43,21 @@ func (b *beerRepo) GetBeers() (beers []beerscli.Beer, err error) {
 		return nil, errors.WrapDataUnreacheable(err, "can't parsing response into beers")
 	}
 	return
+}
+
+func (b *beerRepo) standardUnmarshal(data []byte, beers *[]beerscli.Beer) error {
+	err := json.Unmarshal(data, &beers)
+	if err != nil {
+		return errors.WrapDataUnreacheable(err, "can't parsing response into beers")
+	}
+	return nil
+}
+
+func (b *beerRepo) betterUnmarshal(data []byte, beers *[]beerscli.Beer) error {
+	var js = jsoniter.ConfigCompatibleWithStandardLibrary
+	err := js.Unmarshal(data, &beers)
+	if err != nil {
+		return errors.WrapDataUnreacheable(err, "can't parsing response into beers")
+	}
+	return nil
 }
