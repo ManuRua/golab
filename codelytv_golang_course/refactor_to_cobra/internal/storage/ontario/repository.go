@@ -38,7 +38,7 @@ func (b *beerRepo) GetBeers() (beers []beerscli.Beer, err error) {
 		return nil, errors.WrapDataUnreacheable(err, "error reading the response from %s", productsEndpoint)
 	}
 
-	err = json.Unmarshal(contents, &beers)
+	err = b.betterUnmarshal(contents, &beers)
 	if err != nil {
 		return nil, errors.WrapDataUnreacheable(err, "can't parsing response into beers")
 	}
